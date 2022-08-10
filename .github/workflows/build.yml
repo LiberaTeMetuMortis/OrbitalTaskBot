@@ -11,7 +11,6 @@ permissions:
 
 jobs:
   build:
-  
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -25,3 +24,9 @@ jobs:
       run: |
         npm install
         tsc
+    - name: Remove source
+      run: rm -rf ./src
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Dist
+        path: build
