@@ -24,9 +24,11 @@ jobs:
       run: |
         npm install
         tsc
+    - name: Move temp folder
+      run: mv src/temp build/temp
     - name: Remove source
       run: rm -rf ./src
     - uses: actions/upload-artifact@v3
       with:
         name: Dist
-        path: build
+        path: .
