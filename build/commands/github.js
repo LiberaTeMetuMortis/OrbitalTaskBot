@@ -1,5 +1,6 @@
 import Command from "../command_class.js";
 import * as fs from "fs/promises";
+import exists from "../functions/file_exists.js";
 export default new Command({
     name: "github",
     aliases: ["gh"],
@@ -28,6 +29,8 @@ export default new Command({
             text = await data.text();
         }
         const fileName = query.split("/").at(-1);
+        if (!(await exists("./build/temp")))
+            await fs.mkdir("./build/temp");
         await fs.writeFile("./build/temp/" + fileName, await text);
         await msg.channel.send({ files: [`./build/temp/${fileName}`] });
         await fs.unlink("./build/temp/" + fileName);
